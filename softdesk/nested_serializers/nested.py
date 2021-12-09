@@ -1,40 +1,61 @@
 from rest_framework import serializers
+
 from softdesk.models import Contributors, Projects, Issues, Comments
 
 
-class SimplifiedListProjectsSerializer(serializers.HyperlinkedModelSerializer, serializers.ModelSerializer):
+# Projects
+class SimplifiedListProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projects
-        nameservers = serializers.HyperlinkedIdentityField(
-            view_name='projects-list',
-            lookup_url_kwarg='projects_pk'
-        )
-        fields = ['id', 'type_project', 'title',
-                  'description', 'url', ]
+        fields = ['id', 'type_project', 'title',  'description',
+                  'author_instance', ]
 
 
-class SimplifiedDetailProjectsSerializer(serializers.HyperlinkedModelSerializer, serializers.ModelSerializer):
+class SimplifiedDetailProjectsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projects
-        fields = ['id', 'title', 'description',
-                  'type_project', 'contributors', 'issues', 'author_instance']
+        fields = ['id', 'type_project', 'title', 'description',
+                  'contributors', 'issues', 'author_instance', ]
 
 
-class SimplifiedContributorsSerializer(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
+# Contributors
+class SimplifiedListContributorsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contributors
+        fields = ['id', 'user_instance', 'permission',
+                  'role', 'project_instance', ]
+
+
+class SimplifiedDetailContributorsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contributors
         fields = ['id', 'user_instance',
-                  'project_instance', 'permission', 'role']
+                  'permission', 'role', 'project_instance', ]
 
 
-class SimplifiedIssuesSerializer(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
+# Issues
+class SimplifiedListIssuesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Issues
+        fields = ['id', 'title', 'description',
+                  'created_time', 'tag', 'priority', 'status', ]
+
+
+class SimplifiedDetailIssuesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issues
         fields = ['id', 'author_instance', 'parent_project', 'title',
                   'description', 'created_time', 'tag', 'priority', 'status', 'comments']
 
 
-class SimplifiedCommentsSerializer(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
+# Comments
+class SimplifiedListCommentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+        fields = ['id', 'author_instance', 'description', ]
+
+
+class SimplifiedDetailCommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = ['id', 'author_instance', 'parent_issue',

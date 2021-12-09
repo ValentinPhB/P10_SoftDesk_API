@@ -1,13 +1,26 @@
 from django.contrib.auth.hashers import make_password
 
+from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 
 from authentication.permissions import IsAdminUser
 from authentication.serializers import UserListSerializer, UserDetailSerializer
 from authentication.models import User
+
+
+class CreateUserAPIView(generics.CreateAPIView):
+    serializer_class = UserDetailSerializer
+    permission_classes = (AllowAny,)
+
+    def perform_create(self, serializer):
+        if 'password' in self.request.data:
+            password = make_password(self.request.data['password'])
+            serializer.save(password=password)
+        else:
+            serializer.save()
 
 
 class UserViewSet(ModelViewSet):
@@ -43,9 +56,3 @@ class UserViewSet(ModelViewSet):
         elif self.action in ['retrieve', 'update', 'create', 'delete']:
             return UserDetailSerializer
         return UserListSerializer
-
-    # @property
-    # def default_response_headers(self):
-    #     headers = viewsets.ModelViewSet.default_response_headers.fget(self)
-    #     headers['Authorization'] = request.auth
-    #     return headers

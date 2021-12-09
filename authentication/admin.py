@@ -1,8 +1,10 @@
 from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
-from authentication.models import User
 from django.contrib.auth.models import Group
+
+from authentication.models import User
 from softdesk.models import Projects, Contributors, Issues, Comments
+
 
 class ProjectsInLine(admin.TabularInline):
     model = Projects
@@ -13,7 +15,7 @@ class ProjectsInLine(admin.TabularInline):
         verbose_name = "Projet"
         verbose_name_plural = "Projets"
 
-        
+
 class ContributorsInLine(admin.TabularInline):
     model = Contributors
     fk_name = 'user_instance'
@@ -32,13 +34,13 @@ class IssuesInLine(admin.TabularInline):
     class Meta:
         verbose_name = "Problème notifié"
         verbose_name_plural = "Problèmes notifiés"
-        
-        
+
+
 class CommentsInLine(admin.TabularInline):
     model = Comments
     fk_name = 'author_instance'
     extra = 0
-    
+
     class Meta:
         verbose_name = "Commentaire"
         verbose_name_plural = "Commentaires"
@@ -56,7 +58,7 @@ class UserAdmin(admin.ModelAdmin):
     )
     inlines = [ProjectsInLine, ContributorsInLine,
                IssuesInLine, CommentsInLine]
-    
-    
+
+
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
