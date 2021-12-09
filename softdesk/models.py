@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.db import models
 
+from authentication.models import User
+
 
 class Projects(models.Model):
     class Type(models.TextChoices):
-        NON_RENSEIGNÉ = "NON-RENSEIGNÉ"
+        NON_RENSEIGNE = "NON RENSEIGNÉ"
         BACK_END = "BACK-END"
         FRONT_END = "FRONT-END"
         IOS = "IOS"
@@ -17,7 +19,7 @@ class Projects(models.Model):
     description = models.CharField(verbose_name="Description", max_length=150)
 
     type_project = models.CharField(
-        verbose_name="Type", choices=Type.choices, max_length=15, default=Type.NON_RENSEIGNÉ)
+        verbose_name="Type", choices=Type.choices, max_length=20)
 
     class Meta:
         verbose_name_plural = "Liste des projets créés"
@@ -26,17 +28,23 @@ class Projects(models.Model):
     def __str__(self):
         return self.title
 
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases
+        for the currently authenticated user.
+        """
+        user = self.request.user
+        return Projects.objects.filter(author_instance=user)
+
 
 class Contributors(models.Model):
     class Role(models.TextChoices):
-        NONE = "NONE"
-        AUTEUR = "AUTEUR"
         CONTRIBUTEUR = "CONTRIBUTEUR"
+        AUTEUR = "AUTEUR"
 
     class Permission(models.TextChoices):
-        NONE = "NONE"
-        AUTEUR = "AUTEUR"
         CONTRIBUTEUR = "CONTRIBUTEUR"
+        AUTEUR = "AUTEUR"
 
     user_instance = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="contributors_instances")
@@ -44,29 +52,27 @@ class Contributors(models.Model):
         Projects, on_delete=models.CASCADE, related_name='contributors', null=True)
 
     permission = models.CharField(
-        verbose_name="Permission", choices=Permission.choices, max_length=15, default=Permission.NONE)
+        verbose_name="Permission", choices=Permission.choices,  max_length=20)
     role = models.CharField(verbose_name="Rôle",
-                            choices=Role.choices, max_length=15, default=Role.NONE)
-
-    unique_together = ('user_instance', 'project_instance')
+                            choices=Role.choices, max_length=20)
 
     class Meta:
         verbose_name_plural = "Liste des contributions"
         verbose_name = "Contribution"
 
     def __str__(self):
-        return self.user_instance.get_full_name()
+        return self.user_instance.email
 
 
 class Issues(models.Model):
     class Priority(models.TextChoices):
-        NON_RENSEIGNÉ = "NON-RENSEIGNÉ"
+        NON_RENSEIGNE = "NON RENSEIGNÉ"
         ÉLEVÉE = "ÉLEVÉE"
         MOYENNE = "MOYENNE"
         FAIBLE = "FAIBLE"
 
     class Tag(models.TextChoices):
-        NON_RENSEIGNÉ = "NON-RENSEIGNÉ"
+        NON_RENSEIGNE = "NON RENSEIGNÉ"
         BUG = "BUG"
         AMÉLIORATION = "AMÉLIORATION"
         TÂCHE = "TÂCHE"
@@ -88,11 +94,11 @@ class Issues(models.Model):
         verbose_name="date de publication", auto_now_add=True)
 
     priority = models.CharField(
-        verbose_name="Priorité", choices=Priority.choices, max_length=15, default=Priority.NON_RENSEIGNÉ)
+        verbose_name="Priorité", choices=Priority.choices, max_length=20)
     tag = models.CharField(verbose_name="Balise",
-                           choices=Tag.choices, max_length=15, default=Tag.NON_RENSEIGNÉ)
+                           choices=Tag.choices, max_length=20)
     status = models.CharField(verbose_name="Status",
-                              choices=Status.choices, max_length=8, default=Status.À_FAIRE)
+                              choices=Status.choices, max_length=20)
 
     class Meta:
         verbose_name_plural = "Liste des Problèmes notifiés"

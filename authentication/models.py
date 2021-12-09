@@ -1,8 +1,4 @@
-# import jwt
-# from datetime import datetime, timedelta
-
-from django.conf import settings
-from django.db import models, transaction
+from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin
 )
@@ -12,8 +8,9 @@ class UserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, password):
         if email is None:
             raise TypeError("Une adresse email est requise")
-        
-        user = self.model(email=self.normalize_email(email), first_name=first_name, last_name=last_name)
+
+        user = self.model(email=self.normalize_email(email),
+                          first_name=first_name, last_name=last_name)
         user.set_password(password)
         user.save()
         return user
@@ -28,7 +25,7 @@ class UserManager(BaseUserManager):
         user.save()
 
         return user
-    
+
     def create_staffuser(self, email, first_name, last_name, password):
         if email is None:
             raise TypeError("Une adresse email est requise")
@@ -92,28 +89,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
         return self
-
-    # @property
-    # def token(self):
-    #     """
-    #     Allows us to get a user's token by calling `UserInstance.token` instead of
-    #     `user.generate_jwt_token().
-
-    #     The `@property` decorator above makes this possible. `token` is called
-    #     a "dynamic property".
-    #     """
-    #     return self._generate_jwt_token()
-
-    # def _generate_jwt_token(self):
-    #     """
-    #     Generates a JSON Web Token that stores this user's ID and has an expiry
-    #     date set to 7 days.
-    #     """
-    #     dt = datetime.now() + timedelta(days=7)
-
-    #     token = jwt.encode({
-    #         'id': self.pk,
-    #         'exp': int(dt.strftime('%s'))
-    #     }, settings.SECRET_KEY, algorithm='HS256')
-
-    #     return token.decode('utf-8')
