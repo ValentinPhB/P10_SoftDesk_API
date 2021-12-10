@@ -3,7 +3,6 @@ from rest_framework import serializers
 from authentication.nested_serializers.nested import SimplifiedListUserSerializer
 from softdesk.nested_serializers.nested import (SimplifiedListProjectsSerializer, SimplifiedDetailProjectsSerializer,
                                                 SimplifiedListContributorsSerializer,
-                                                SimplifiedDetailContributorsSerializer,
                                                 SimplifiedListIssuesSerializer, SimplifiedDetailIssuesSerializer,
                                                 SimplifiedListCommentsSerializer, SimplifiedDetailCommentsSerializer)
 
@@ -27,7 +26,7 @@ class ContributorsListSerializer(SimplifiedListContributorsSerializer):
     project_instance = SimplifiedListProjectsSerializer(read_only=True)
 
 
-class ContributorsDetailSerializer(SimplifiedDetailContributorsSerializer):
+class ContributorsDetailSerializer(SimplifiedListContributorsSerializer):
     project_instance = SimplifiedListProjectsSerializer(read_only=True)
 
 

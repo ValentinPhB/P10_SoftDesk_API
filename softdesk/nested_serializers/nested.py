@@ -26,13 +26,6 @@ class SimplifiedListContributorsSerializer(serializers.ModelSerializer):
                   'role', 'project_instance', ]
 
 
-class SimplifiedDetailContributorsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Contributors
-        fields = ['id', 'user_instance',
-                  'permission', 'role', 'project_instance', ]
-
-
 # Issues
 class SimplifiedListIssuesSerializer(serializers.ModelSerializer):
     class Meta:
