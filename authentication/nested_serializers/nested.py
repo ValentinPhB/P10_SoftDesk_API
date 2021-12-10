@@ -5,8 +5,7 @@ from authentication.models import User
 class SimplifiedListUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name',
-                  'email', 'is_staff', 'is_superuser',)
+        fields = ('id', 'first_name', 'last_name', 'is_staff', 'is_superuser',)
 
 
 class SimplifiedDetailUserSerializer(serializers.ModelSerializer):

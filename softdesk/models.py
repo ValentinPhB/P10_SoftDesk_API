@@ -1,8 +1,6 @@
 from django.conf import settings
 from django.db import models
 
-from authentication.models import User
-
 
 class Projects(models.Model):
     class Type(models.TextChoices):
@@ -27,14 +25,6 @@ class Projects(models.Model):
 
     def __str__(self):
         return self.title
-
-    def get_queryset(self):
-        """
-        This view should return a list of all the purchases
-        for the currently authenticated user.
-        """
-        user = self.request.user
-        return Projects.objects.filter(author_instance=user)
 
 
 class Contributors(models.Model):
