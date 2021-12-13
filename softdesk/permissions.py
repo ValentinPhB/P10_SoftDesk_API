@@ -5,7 +5,7 @@ from rest_framework import permissions
 from softdesk.models import Projects, Contributors
 
 
-class OwnerProjectRights(permissions.BasePermission):
+class ProjectRights(permissions.BasePermission):
     """
     Allows access to SAFE_METHODS or lists only to non-object-owner or if they are contributors.
     Allows rights to object-owner or user with author permission | SuperUsers | StaffUser.
@@ -51,7 +51,7 @@ class OwnerProjectRights(permissions.BasePermission):
             return True
 
 
-class OwnerContributorsRights(permissions.BasePermission):
+class ContributorsRights(permissions.BasePermission):
     """
     Allows access to SAFE_METHODS or lists only to non-object-owner or if they are contributors.
     Allows rights to user with author permission | SuperUsers | StaffUser.
@@ -95,7 +95,7 @@ class OwnerContributorsRights(permissions.BasePermission):
             return True
 
 
-class OwnerIssuesRights(permissions.BasePermission):
+class IssuesRights(permissions.BasePermission):
     """
     Allows access to SAFE_METHODS or lists only to non-object-owner or if they are contributors.
     Allows rights to object-owner or user with author permission | SuperUsers | StaffUser.
@@ -141,7 +141,7 @@ class OwnerIssuesRights(permissions.BasePermission):
             return True
         
 
-class OwnerCommentsRights(permissions.BasePermission):
+class CommentsRights(permissions.BasePermission):
     """
     Allows access to SAFE_METHODS or lists only to non-object-owner or if they are contributors.
     Allows rights to object-owner or user with author permission | SuperUsers | StaffUser.
