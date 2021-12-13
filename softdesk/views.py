@@ -14,14 +14,14 @@ from softdesk.models import Contributors, Projects, Issues, Comments
 from softdesk.serializers import (ContributorsListSerializer, ContributorsDetailSerializer, ProjectsListSerializer,
                                   ProjectsDetailSerializer, IssuesListSerializer, IssuesDetailSerializer,
                                   CommentsListSerializer, CommentsDetailSerializer)
-from softdesk.permissions import OwnerProjectRights, OwnerContributorsRights, OwnerIssuesRights, OwnerCommentsRights
+from softdesk.permissions import ProjectRights, ContributorsRights, IssuesRights, CommentsRights
 
 
 class ContributorsViewSet(ModelViewSet):
     queryset = Contributors.objects.all()
     serializer_class = ContributorsListSerializer
     detail_serializer_class = ContributorsListSerializer
-    permission_classes = (IsAuthenticated, OwnerContributorsRights,)
+    permission_classes = (IsAuthenticated, ContributorsRights,)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -61,7 +61,7 @@ class ProjectsViewSet(ModelViewSet):
     queryset = Projects.objects.all()
     serializer_class = ProjectsListSerializer
     detail_serializer_class = ProjectsDetailSerializer
-    permission_classes = (OwnerProjectRights, IsAuthenticated,)
+    permission_classes = (IsAuthenticated, ProjectRights,)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -104,7 +104,7 @@ class IssuesViewSet(ModelViewSet):
     queryset = Issues.objects.all()
     serializer_class = IssuesListSerializer
     detail_serializer_class = IssuesDetailSerializer
-    permission_classes = (IsAuthenticated, OwnerIssuesRights,)
+    permission_classes = (IsAuthenticated, IssuesRights,)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -138,7 +138,7 @@ class CommentsViewSet(ModelViewSet):
     queryset = Comments.objects.all()
     serializer_class = CommentsListSerializer
     detail_serializer_class = CommentsDetailSerializer
-    permission_classes = (IsAuthenticated, OwnerCommentsRights,)
+    permission_classes = (IsAuthenticated, CommentsRights,)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
