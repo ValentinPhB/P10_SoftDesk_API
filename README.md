@@ -58,7 +58,7 @@ $ psql postgres
 
 postgres= $ CREATE DATABASE auth;
 
-postgres= $ CREATE ROLE django_auth WITH LOGIN PASSWORD 'asdfgh';
+postgres= $ CREATE ROLE django_auth WITH LOGIN PASSWORD 'valval';
 
 postgres= $ GRANT ALL PRIVILEGES ON DATABASE auth TO django_auth;
 ```
@@ -115,7 +115,7 @@ Then :
 postgres= $ CREATE DATABASE auth;
 
 # CREATE django_auth
-postgres= $ CREATE ROLE django_auth WITH LOGIN PASSWORD 'asdfgh';
+postgres= $ CREATE ROLE django_auth WITH LOGIN PASSWORD 'valval';
 
 # Give django_auth a superuser statu
 postgres= $ GRANT ALL PRIVILEGES ON DATABASE auth TO django_auth;
