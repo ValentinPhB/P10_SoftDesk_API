@@ -44,7 +44,7 @@ Or if you use git, download it from [here](https://github.com/ValentinPhB/P10_So
 
 Create a virtual environment in "PATH" and install packages from requirements.txt.
 ```
-$ cd ../path/to/litereview-P9
+$ cd ../path/to/P10_SoftDesk_API
 $ python3 -m venv env
 $ source env/bin/activate
 $ python3 -m pip install -U pip
@@ -99,7 +99,7 @@ Then, using cmd, go to "PATH", create a virtual environment and install packages
 
 Create a virtual environment in "PATH" and install packages from requirements.txt.
 ```
-$ CD ../path/to/litereview-P9
+$ CD ../path/to/P10_SoftDesk_API
 $ py -m venv env
 $ env\Scripts\activate.bat
 $ py -m pip install -U pip
