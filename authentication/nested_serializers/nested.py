@@ -14,3 +14,11 @@ class SimplifiedDetailUserSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser',
                   'date_joined', 'projects_instances', 'contributors_instances',
                   'issues_instances', 'comments_instances', 'password')
+        read_only_fields = ('is_staff', 'is_superuser')
+
+class SimplifiedDetailAdminUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'email', 'is_staff', 'is_superuser',
+                  'date_joined', 'projects_instances', 'contributors_instances',
+                  'issues_instances', 'comments_instances', 'password')

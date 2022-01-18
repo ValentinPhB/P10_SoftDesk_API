@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from authentication.permissions import IsAdminUser
-from authentication.serializers import UserListSerializer, UserDetailSerializer
+from authentication.serializers import UserListSerializer, UserDetailSerializer, UserDetailAdminSerializer
 from authentication.models import User
 
 
@@ -21,6 +21,13 @@ class CreateUserAPIView(generics.CreateAPIView):
             serializer.save(password=password)
         else:
             serializer.save()
+            
+    def get_serializer_class(self):
+        if self.request.user.is_anonymous:
+            return UserDetailSerializer
+        elif self.request.user.is_superuser or self.request.user.is_staff:
+            return UserDetailAdminSerializer
+        return UserDetailSerializer
 
 
 class UserViewSet(ModelViewSet):
