@@ -21,19 +21,19 @@ API Documentation :
 
 Python 3.8.0
 
-asgiref==3.4.1
-autopep8==1.6.0
-Django==3.2.9
-django-filter==21.1
-djangorestframework==3.12.4
-djangorestframework-simplejwt==4.7.2
-drf-nested-routers==0.93.4
-psycopg2-binary==2.9.2
-pycodestyle==2.8.0
-PyJWT==2.3.0
-pytz==2021.3
-sqlparse==0.4.2
-toml==0.10.2
+* asgiref==3.4.1
+* autopep8==1.6.0
+* Django==3.2.9
+* django-filter==21.1
+* djangorestframework==3.12.4
+* djangorestframework-simplejwt==4.7.2
+* drf-nested-routers==0.93.4
+* psycopg2-binary==2.9.2
+* pycodestyle==2.8.0
+* PyJWT==2.3.0
+* pytz==2021.3
+* sqlparse==0.4.2
+* toml==0.10.2
 
 ## 3. Setup
 ### A) *Setup for Unix*
